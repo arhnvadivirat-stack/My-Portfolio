@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aditya Kumar Singh - Software Developer & Data Analyst</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts for Futuristic Look -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+
+        tailwind.config = {
+
+            darkMode: 'class',
+
+            theme: {
+
+                extend: {
+
+                    fontFamily: {
+
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+
+                    },
+
+                    colors: {
+
+                        primary: '#38bdf8',
+
+                        secondary: '#818cf8',
+
+                        darkBg: '#030712',
+
+                        cardBg: '#0f172a'
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+    <style>
+
+        body {
+
+            background-color: #030712;
+
+            color: #f8fafc;
+
+            overflow-x: hidden;
+
+            cursor: none;
+
+            font-family: 'Space Grotesk', sans-serif;
+
+        }
+
+
+
+        /* Subtle & Clean Custom Cursor Styles */
+
+        .custom-cursor {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 8px;
+
+            height: 8px;
+
+            background-color: #38bdf8;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            z-index: 99999;
+
+            transform: translate(-50%, -50%);
+
+            box-shadow: 0 0 6px #38bdf8;
+
+        }
+
+
+
+        .custom-cursor-follower {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 28px;
+
+            height: 28px;
+
+            border: 1px solid rgba(56, 189, 248, 0.3);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            z-index: 99998;
+
+            transform: translate(-50%, -50%);
+
+            transition: transform 0.08s ease-out;
+
+        }
+
+
+
+        /* Pitch Black Room Overlay */
+
+        #roomOverlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: #000000;
+
+            z-index: 999;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transition: opacity 1.2s ease, visibility 1.2s ease;
+
+        }
+
+        body.lights-on #roomOverlay {
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+        }
+
+
+
+        /* Sci-Fi Terminal Welcome Screen */
+
+        #welcomeOverlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: #030712;
+
+            z-index: 998;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+
+        }
+
+        #welcomeOverlay.active-terminal {
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+        #welcomeOverlay.hidden-box {
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+        }
+
+        .terminal-box {
+
+            font-family: 'Courier New', Courier, monospace;
+
+            text-align: left;
+
+            max-width: 550px;
+
+            width: 90%;
+
+            background: rgba(15, 23, 42, 0.95);
+
+            border: 1px solid rgba(56, 189, 248, 0.5);
+
+            padding: 24px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 0 40px rgba(56, 189, 248, 0.3);
+
+        }
+
+        .terminal-line {
+
+            color: #38bdf8;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+
+            opacity: 0;
+
+            transform: translateY(5px);
+
+            transition: all 0.3s ease;
+
+        }
+
+        .terminal-line.active {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+        .highlight-title {
+
+            font-size: 1.2rem;
+
+            font-weight: bold;
+
+            color: #ffffff;
+
+            text-shadow: 0 0 10px #38bdf8;
+
+            margin-top: 10px;
+
+        }
+
+
+
+        /* Unique Cyber-Scan Matrix Splash Screen */
+
+        #introSplash {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: #030712;
+
+            z-index: 997;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+
+        }
+
+        #introSplash.active-intro {
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+        #introSplash.fade-out {
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+        }
+
+
+
+        .cyber-scan-box {
+
+            border: 1px solid rgba(56, 189, 248, 0.3);
+
+            background: rgba(3, 7, 18, 0.9);
+
+            padding: 40px 60px;
+
+            border-radius: 16px;
+
+            position: relative;
+
+            box-shadow: 0 0 50px rgba(56, 189, 248, 0.15), inset 0 0 20px rgba(56, 189, 248, 0.05);
+
+            text-align: center;
+
+            overflow: hidden;
+
+        }
+
+        .cyber-scan-box::after {
+
+            content: '';
+
+            position: absolute;
+
+            top: 0; left: 0; width: 100%; height: 2px;
+
+            background: #38bdf8;
+
+            box-shadow: 0 0 15px #38bdf8;
+
+            animation: scanLine 2s linear infinite;
+
+        }
+
+        @keyframes scanLine {
+
+            0% { top: 0%; }
+
+            50% { top: 100%; }
+
+            100% { top: 0%; }
+
+        }
+
+
+
+        .cyber-text-main {
+
+            font-size: 2.2rem;
+
+            font-weight: 800;
+
+            color: #ffffff;
+
+            letter-spacing: 0.05em;
+
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+
+            opacity: 0;
+
+            transform: scale(0.95);
+
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+        }
+
+        .cyber-text-sub {
+
+            font-size: 0.85rem;
+
+            color: #38bdf8;
+
+            font-family: monospace;
+
+            letter-spacing: 0.2em;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+
+            opacity: 0;
+
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+        }
+
+        .cyber-text-main.reveal { opacity: 1; transform: scale(1); }
+
+        .cyber-text-sub.reveal { opacity: 1; }
+
+
+
+        /* Portfolio Wrapper */
+
+        #portfolioContainer {
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: opacity 1s ease;
+
+        }
+
+        #portfolioContainer.show-portfolio {
+
+            opacity: 1;
+
+            pointer-events: auto;
+
+        }
+
+
+
+        /* Hero Staggered Reveal Animation Classes */
+
+        .hero-reveal-item {
+
+            opacity: 0;
+
+            transform: translateY(25px);
+
+            filter: blur(6px);
+
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+
+        }
+
+        .hero-reveal-item.reveal-now {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+            filter: blur(0);
+
+        }
+
+
+
+        /* Fixed Background Canvas Layering */
+
+        #constellationCanvas {
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 1;
+
+        }
+
+        #cursorTrailCanvas {
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 2;
+
+        }
+
+
+
+        header, section, .floating-dock, .ai-robot-widget {
+
+            position: relative;
+
+            z-index: 10;
+
+        }
+
+
+
+        /* Interactive Drag & Pull Hanging Lamp Widget */
+
+        .hanging-lamp-widget {
+
+            position: fixed;
+
+            top: 0;
+
+            right: 120px;
+
+            z-index: 10000;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            cursor: pointer;
+
+            user-select: none;
+
+            touch-action: none;
+
+        }
+
+        .lamp-wire {
+
+            width: 2px;
+
+            height: 70px;
+
+            background: linear-gradient(to bottom, #38bdf8, #64748b);
+
+        }
+
+        .lamp-shade {
+
+            width: 40px;
+
+            height: 20px;
+
+            background: #334155;
+
+            border-radius: 20px 20px 0 0;
+
+            position: relative;
+
+            display: flex;
+
+            justify-content: center;
+
+        }
+
+        .lamp-bulb {
+
+            width: 16px;
+
+            height: 16px;
+
+            background: #38bdf8;
+
+            border-radius: 50%;
+
+            position: absolute;
+
+            bottom: -8px;
+
+            box-shadow: 0 0 20px #38bdf8, 0 0 40px rgba(56, 189, 248, 0.8);
+
+            transition: all 0.3s ease;
+
+        }
+
+        .pull-string-container {
+
+            position: relative;
+
+            margin-top: 4px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+        .pull-wire {
+
+            width: 2px;
+
+            height: 40px;
+
+            background: #94a3b8;
+
+            transition: height 0.1s ease;
+
+        }
+
+        .pull-handle {
+
+            width: 10px;
+
+            height: 14px;
+
+            background: #cbd5e1;
+
+            border-radius: 4px;
+
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+
+        }
+
+
+
+        /* Floating Bottom Dock */
+
+        .floating-dock {
+
+            position: fixed;
+
+            bottom: 24px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            z-index: 100;
+
+            background: rgba(15, 23, 42, 0.85);
+
+            backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            padding: 10px 20px;
+
+            border-radius: 9999px;
+
+            display: flex;
+
+            gap: 20px;
+
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+
+        }
+
+
+
+        /* Futuristic Robot Assistant Widget */
+
+        .ai-robot-widget {
+
+            position: fixed;
+
+            top: 20px;
+
+            right: 24px;
+
+            z-index: 100;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            animation: floatRobot 3s ease-in-out infinite;
+
+        }
+
+        @keyframes floatRobot {
+
+            0%, 100% { transform: translateY(0); }
+
+            50% { transform: translateY(-8px); }
+
+        }
+
+        .ai-speech-bubble {
+
+            background: rgba(15, 23, 42, 0.95);
+
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(56, 189, 248, 0.5);
+
+            padding: 8px 12px;
+
+            border-radius: 12px;
+
+            font-size: 11px;
+
+            color: #e2e8f0;
+
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+
+            max-width: 200px;
+
+            text-align: right;
+
+            display: none;
+
+        }
+
+        @media(min-width: 768px) {
+
+            .ai-speech-bubble { display: block; }
+
+        }
+
+        .robot-head {
+
+            width: 48px;
+
+            height: 42px;
+
+            background: linear-gradient(135deg, #0284c7, #312e81);
+
+            border-radius: 10px;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+
+            border: 1px solid #38bdf8;
+
+            cursor: pointer;
+
+        }
+
+        .robot-head::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: -10px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 2px;
+
+            height: 10px;
+
+            background: #38bdf8;
+
+        }
+
+        .robot-head::after {
+
+            content: '';
+
+            position: absolute;
+
+            top: -14px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 6px;
+
+            height: 6px;
+
+            background: #22c55e;
+
+            border-radius: 50%;
+
+            box-shadow: 0 0 8px #22c55e;
+
+            animation: blinkAntenna 1.5s infinite;
+
+        }
+
+        @keyframes blinkAntenna {
+
+            0%, 100% { opacity: 1; }
+
+            50% { opacity: 0.3; }
+
+        }
+
+        .robot-eyes {
+
+            display: flex;
+
+            gap: 8px;
+
+        }
+
+        .robot-eye {
+
+            width: 8px;
+
+            height: 8px;
+
+            background: #38bdf8;
+
+            border-radius: 50%;
+
+            box-shadow: 0 0 10px #38bdf8;
+
+            animation: blinkEyes 4s infinite;
+
+        }
+
+        @keyframes blinkEyes {
+
+            0%, 96%, 100% { transform: scaleY(1); }
+
+            98% { transform: scaleY(0.1); }
+
+        }
+
+
+
+        /* Profile Glow Cyber Ring */
+
+        .profile-glow-ring {
+
+            position: absolute;
+
+            inset: -12px;
+
+            border-radius: 50%;
+
+            background: linear-gradient(135deg, #38bdf8, transparent, #818cf8);
+
+            z-index: -1;
+
+            opacity: 0.6;
+
+            filter: blur(10px);
+
+            animation: rotateRing 8s linear infinite;
+
+        }
+
+        @keyframes rotateRing {
+
+            100% { transform: rotate(360deg); }
+
+        }
+
+
+
+        /* Modal Styles for Project Preview */
+
+        #projectModal {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(3, 7, 18, 0.85);
+
+            backdrop-filter: blur(12px);
+
+            z-index: 10000;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: all 0.3s ease;
+
+        }
+
+        #projectModal.active-modal {
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+    </style>
+
+</head>
+
+<body class="selection:bg-primary selection:text-slate-950">
+
+
+
+    <!-- Custom Round Cursors -->
+
+    <div class="custom-cursor" id="cursorDot"></div>
+
+    <div class="custom-cursor-follower" id="cursorFollower"></div>
+
+
+
+    <!-- Background Canvas Layers -->
+
+    <canvas id="constellationCanvas"></canvas>
+
+    <canvas id="cursorTrailCanvas"></canvas>
+
+
+
+    <!-- Project Interactive Modal -->
+
+    <div id="projectModal">
+
+        <div class="bg-slate-900 border border-sky-500/40 p-6 md:p-8 rounded-2xl max-w-2xl w-[90%] shadow-2xl relative">
+
+            <button onclick="closeProjectModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+
+            <div id="modalContent">
+
+                <!-- Dynamic Content injected via JS -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Interactive Drag & Pull Hanging Lamp Widget -->
+
+    <div class="hanging-lamp-widget" id="lampWrapper" title="Drag cord to toggle lights!">
+
+        <div class="lamp-wire"></div>
+
+        <div class="lamp-shade">
+
+            <div id="lampBulb" class="lamp-bulb" style="background:#38bdf8; box-shadow:0 0 20px #38bdf8;"></div>
+
+        </div>
+
+        <div class="pull-string-container" id="pullContainer">
+
+            <div class="pull-wire" id="pullWire"></div>
+
+            <div class="pull-handle"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Pitch Black Room Overlay -->
+
+    <div id="roomOverlay">
+
+        <div class="text-center px-4 animate-pulse">
+
+            <h2 class="text-xl md:text-2xl font-bold text-slate-400 mb-2">Room is Dark</h2>
+
+            <p class="text-slate-500 text-sm">Drag the top-right lamp cord down to turn on the lights!</p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Sci-Fi Terminal Welcome Screen -->
+
+    <div id="welcomeOverlay">
+
+        <div class="terminal-box">
+
+            <div class="terminal-line" id="line1">&gt; Initializing Neural Network... [OK]</div>
+
+            <div class="terminal-line" id="line2">&gt; Accessing Secure Developer Core... [SUCCESS]</div>
+
+            <div class="terminal-line" id="line3">&gt; Loading Modules: C++, Python, Power BI... [READY]</div>
+
+            <div class="terminal-line highlight-title" id="line4">&gt;&gt; SYSTEM READY_</div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Unique Cyber-Scan Matrix Splash Screen -->
+
+    <div id="introSplash">
+
+        <div class="cyber-scan-box">
+
+            <div class="cyber-text-sub" id="cs1">// ACCESS GRANTED: SECURE PROFILE //</div>
+
+            <div class="cyber-text-main" id="cs2">ADITYA KUMAR SINGH</div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- PORTFOLIO WRAPPER -->
+
+    <div id="portfolioContainer">
+
+
+
+        <!-- Futuristic Robot Assistant Widget -->
+
+        <div class="ai-robot-widget">
+
+            <div class="ai-speech-bubble">
+
+                Hi, I'm Aditya's AI assistant. Ask me anything about his work or projects.
+
+            </div>
+
+            <div class="robot-head" title="Futuristic AI Robot Assistant">
+
+                <div class="robot-eyes">
+
+                    <div class="robot-eye"></div>
+
+                    <div class="robot-eye"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Top Badge / Status -->
+
+        <header class="pt-8 px-6 max-w-7xl mx-auto flex justify-start items-center">
+
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-slate-900 border border-slate-800 text-primary shadow-lg shadow-primary/10">
+
+                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> AVAILABLE FOR GLOBAL PROJECTS
+
+            </span>
+
+        </header>
+
+
+
+        <!-- Hero Section -->
+
+        <section class="min-h-[82vh] flex items-center pt-4 pb-16 px-6 max-w-7xl mx-auto">
+
+            <div class="grid md:grid-cols-2 gap-12 items-center w-full">
+
+                <!-- Left Side -->
+
+                <div class="space-y-5">
+
+                    <div class="hero-reveal-item inline-flex items-center gap-2 px-3 py-1 rounded-md bg-sky-950/60 border border-sky-800/60 text-sky-400 text-xs font-mono tracking-wider" style="transition-delay: 100ms;">
+
+                        <i class="fa-solid fa-terminal"></i> SOFTWARE ENGINEER & ANALYST
+
+                    </div>
+
+                    <h1 class="hero-reveal-item text-4xl md:text-6xl font-extrabold tracking-tight leading-tight" style="transition-delay: 250ms;">
+
+                        Aditya Kumar <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">Singh</span>
+
+                    </h1>
+
+                    <div class="hero-reveal-item text-base md:text-lg font-medium text-slate-300" style="transition-delay: 400ms;">
+
+                        Building High-End Applications & Data-Driven Insights
+
+                    </div>
+
+                    <p class="hero-reveal-item text-slate-400 text-xs md:text-sm max-w-lg leading-relaxed font-light" style="transition-delay: 550ms;">
+
+                        SPECIALIZING IN C++, PYTHON, SQL, AND ADVANCED EXCEL & POWER BI DASHBOARDS. FINAL YEAR CSE STUDENT AT SIR MVIT.
+
+                    </p>
+
+
+
+                    <!-- Tech Stack Quick Pills -->
+
+                    <div class="hero-reveal-item flex flex-wrap gap-2 pt-1" style="transition-delay: 700ms;">
+
+                        <span class="px-2.5 py-1 bg-slate-900/90 border border-slate-800 text-xs text-slate-300 rounded-lg">C++</span>
+
+                        <span class="px-2.5 py-1 bg-slate-900/90 border border-slate-800 text-xs text-slate-300 rounded-lg">Python</span>
+
+                        <span class="px-2.5 py-1 bg-slate-900/90 border border-slate-800 text-xs text-slate-300 rounded-lg">SQL</span>
+
+                        <span class="px-2.5 py-1 bg-slate-900/90 border border-slate-800 text-xs text-slate-300 rounded-lg">Power BI</span>
+
+                        <span class="px-2.5 py-1 bg-slate-900/90 border border-slate-800 text-xs text-slate-300 rounded-lg">IoT & Cyber Security</span>
+
+                    </div>
+
+
+
+                    <div class="hero-reveal-item flex flex-wrap gap-4 pt-3" style="transition-delay: 850ms;">
+
+                        <a href="#projects" class="bg-gradient-to-r from-sky-400 to-indigo-500 hover:from-sky-300 hover:to-indigo-400 text-slate-950 font-semibold px-6 py-3 rounded-xl transition shadow-lg shadow-primary/25 flex items-center gap-2 text-sm">
+
+                            Explore Engineering <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                        <a href="https://drive.google.com/file/d/18T8r1O0nL-8AmuMKgmCgJ3SwPv9lBd33/view?usp=sharing" target="_blank" class="bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-800 font-semibold px-6 py-3 rounded-xl transition flex items-center gap-2 text-sm backdrop-blur-md">
+
+                            <i class="fa-solid fa-file-arrow-down text-primary"></i> Get Resume
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Right Side Profile Image -->
+
+                <div class="hero-reveal-item flex justify-center relative" style="transition-delay: 1000ms;">
+
+                    <div class="absolute w-64 h-64 md:w-80 md:h-80 bg-gradient-to-tr from-sky-500/30 to-indigo-500/30 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="relative w-60 h-60 md:w-72 md:h-72 rounded-full p-1.5 bg-gradient-to-b from-sky-400 to-indigo-600 shadow-2xl">
+
+                        <div class="profile-glow-ring"></div>
+
+                        <div class="w-full h-full rounded-full overflow-hidden bg-cardBg">
+
+                            <img src="profile.jpg" alt="Aditya Kumar Singh" class="w-full h-full object-cover scale-105 hover:scale-100 transition duration-500">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- About Section -->
+
+        <section id="about" class="py-20 px-6 max-w-5xl mx-auto border-t border-slate-900">
+
+            <div class="text-center space-y-6">
+
+                <h2 class="text-3xl font-bold">About Me</h2>
+
+                <p class="text-slate-300 text-base md:text-lg leading-relaxed">
+
+                    Software development and data analytics enthusiast with a strong foundation in C++, Python, SQL, and Object-Oriented Programming. Adept at data structures, algorithmic problem solving, database management, and leveraging analytics tools like Power BI and Excel to derive insights.
+
+                </p>
+
+                <div class="flex justify-center gap-4 text-xs text-slate-400 flex-wrap pt-4">
+
+                    <span class="bg-cardBg border border-slate-800 px-4 py-2 rounded-lg"><i class="fa-solid fa-location-dot text-primary mr-2"></i>Bengaluru, Karnataka, India</span>
+
+                    <span class="bg-cardBg border border-slate-800 px-4 py-2 rounded-lg"><i class="fa-solid fa-phone text-primary mr-2"></i>+91 8102136764</span>
+
+                    <span class="bg-cardBg border border-slate-800 px-4 py-2 rounded-lg"><i class="fa-solid fa-envelope text-primary mr-2"></i>arhnvadivirat@gmail.com</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Projects Section (Global Superstore Featured Project) -->
+
+        <section id="projects" class="py-20 px-6 max-w-5xl mx-auto">
+
+            <div class="text-center mb-16">
+
+                <h2 class="text-3xl font-bold mb-3">Featured Project</h2>
+
+                <p class="text-slate-400 text-sm">Highlighting my core data analysis and visualization work.</p>
+
+            </div>
+
+
+
+            <!-- Global Superstore Dashboard Card -->
+
+            <div onclick="openProject('superstore')" class="bg-cardBg border border-slate-800 p-6 md:p-8 rounded-2xl shadow-xl cursor-pointer hover:border-primary transition duration-300">
+
+                <div class="flex items-center justify-between mb-4">
+
+                    <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs font-semibold rounded-full">Data Analysis & Visualization</span>
+
+                    <i class="fa-solid fa-file-excel text-2xl text-green-400"></i>
+
+                </div>
+
+                <h3 class="text-2xl font-bold mb-3">Global Superstore Executive Dashboard <i class="fa-solid fa-arrow-up-right-from-square text-xs text-primary ml-2"></i></h3>
+
+                <p class="text-slate-400 text-sm mb-6">
+
+                    Designed and developed an end-to-end executive dashboard utilizing raw transactional data (9,800+ rows, 51,000+ total orders) to track key performance metrics and business growth.
+
+                </p>
+
+
+
+                <!-- Dashboard Preview Image -->
+
+                <div class="mb-6 rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner max-w-2xl mx-auto">
+
+                    <img src="dashboard.png" alt="Global Superstore Executive Dashboard" class="w-full h-auto object-contain">
+
+                </div>
+
+
+
+                <ul class="space-y-2 text-xs text-slate-300 mb-6">
+
+                    <li><i class="fa-solid fa-check text-primary mr-2"></i> Monitored cumulative revenue crossing $2.26M with +12.4% YoY growth.</li>
+
+                    <li><i class="fa-solid fa-check text-primary mr-2"></i> Built interactive filters & slicers for Ship Mode, Segment, Region & Category.</li>
+
+                    <li><i class="fa-solid fa-check text-primary mr-2"></i> Visualized top-performing markets led by California and New York.</li>
+
+                </ul>
+
+
+
+                <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+
+                    <span class="text-xs text-primary font-medium">Tools: Microsoft Excel / Power BI</span>
+
+                    <span class="text-xs bg-slate-900 text-slate-300 px-3 py-1.5 rounded-lg font-medium">Click to View Details</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Skills Section -->
+
+        <section id="skills" class="py-20 px-6 max-w-5xl mx-auto border-t border-slate-900">
+
+            <div class="text-center mb-16">
+
+                <h2 class="text-3xl font-bold mb-3">Technical Stack</h2>
+
+                <p class="text-slate-400 text-sm">Core competencies, languages, and tools.</p>
+
+            </div>
+
+
+
+            <div class="grid md:grid-cols-3 gap-6">
+
+                <div class="bg-cardBg border border-slate-800 p-6 rounded-xl">
+
+                    <h4 class="font-semibold text-primary mb-3"><i class="fa-solid fa-terminal mr-2"></i> Languages</h4>
+
+                    <p class="text-sm text-slate-300">C, C++, Python</p>
+
+                </div>
+
+                <div class="bg-cardBg border border-slate-800 p-6 rounded-xl">
+
+                    <h4 class="font-semibold text-primary mb-3"><i class="fa-solid fa-database mr-2"></i> Data & Analytics</h4>
+
+                    <p class="text-sm text-slate-300">Power BI, Microsoft Excel, SQL (MySQL)</p>
+
+                </div>
+
+                <div class="bg-cardBg border border-slate-800 p-6 rounded-xl">
+
+                    <h4 class="font-semibold text-primary mb-3"><i class="fa-solid fa-tools mr-2"></i> Web & Tools</h4>
+
+                    <p class="text-sm text-slate-300">HTML, CSS, JavaScript, Git, GitHub, VS Code</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Education Section -->
+
+        <section id="education" class="py-20 px-6 max-w-4xl mx-auto">
+
+            <div class="text-center mb-12">
+
+                <h2 class="text-3xl font-bold">Education</h2>
+
+            </div>
+
+            <div class="bg-cardBg border border-slate-800 p-8 rounded-2xl">
+
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+
+                    <div>
+
+                        <h3 class="text-xl font-bold text-white">Sir M. Visvesvaraya Institute of Technology (Sir MVIT)</h3>
+
+                        <p class="text-primary text-sm font-medium">B.E. in Computer Science and Engineering - IoT, Cyber Security & Blockchain Technology</p>
+
+                    </div>
+
+                    <span class="text-xs bg-slate-900 border border-slate-800 text-slate-300 px-3 py-1 rounded-full mt-2 md:mt-0">Expected April 2027</span>
+
+                </div>
+
+                <p class="text-xs text-slate-400 mt-2">
+
+                    <strong class="text-slate-300">Relevant Courses:</strong> Artificial Intelligence, Foundation of Data Science, Data Structures & Algorithms, Operating Systems, Computer Networks, Database Systems, Computer Architecture.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Contact Section -->
+
+        <section id="contact" class="py-20 px-6 max-w-4xl mx-auto text-center border-t border-slate-900 mb-24">
+
+            <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+
+            <p class="text-slate-400 mb-8 text-sm">Feel free to reach out for software development or data analytics roles and collaborations!</p>
+
+            <a href="mailto:arhnvadivirat@gmail.com" class="inline-block bg-primary hover:bg-sky-400 text-slate-950 font-semibold px-8 py-3 rounded-xl transition shadow-lg shadow-primary/20 text-sm">
+
+                Send Me an Email
+
+            </a>
+
+        </section>
+
+
+
+        <!-- Floating Bottom Dock -->
+
+        <div class="floating-dock text-slate-400 text-lg">
+
+            <a href="#" class="hover:text-primary transition" title="Home"><i class="fa-solid fa-house"></i></a>
+
+            <a href="#projects" class="hover:text-primary transition" title="Projects"><i class="fa-solid fa-code"></i></a>
+
+            <a href="#skills" class="hover:text-primary transition" title="Skills"><i class="fa-solid fa-brain"></i></a>
+
+            <a href="https://github.com/arhnvadivirat-stack" target="_blank" class="hover:text-primary transition" title="GitHub"><i class="fa-brands fa-github"></i></a>
+
+            <a href="https://www.linkedin.com/in/aditya-kumar-singh-472977424" target="_blank" class="hover:text-primary transition" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+
+            <a href="mailto:arhnvadivirat@gmail.com" class="hover:text-primary transition" title="Email"><i class="fa-solid fa-envelope"></i></a>
+
+        </div>
+
+
+
+        <!-- Footer -->
+
+        <footer class="py-8 text-center text-xs text-slate-600 border-t border-slate-900">
+
+            <p>&copy; 2026 Aditya Kumar Singh. Built with Tailwind CSS.</p>
+
+        </footer>
+
+
+
+    </div><!-- End of Portfolio Container -->
+
+
+
+    <!-- Interactive Scripts -->
+
+    <script>
+
+        const cursorDot = document.getElementById('cursorDot');
+
+        const cursorFollower = document.getElementById('cursorFollower');
+
+
+
+        let mouseX = 0, mouseY = 0;
+
+        let followerX = 0, followerY = 0;
+
+
+
+        window.addEventListener('mousemove', (e) => {
+
+            mouseX = e.clientX;
+
+            mouseY = e.clientY;
+
+            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+
+        });
+
+
+
+        function renderFollower() {
+
+            followerX += (mouseX - followerX) * 0.2;
+
+            followerY += (mouseY - followerY) * 0.2;
+
+            cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px) translate(-50%, -50%)`;
+
+            requestAnimationFrame(renderFollower);
+
+        }
+
+        renderFollower();
+
+
+
+        // Project Modal Logic
+
+        const projectModal = document.getElementById('projectModal');
+
+        const modalContent = document.getElementById('modalContent');
+
+
+
+        function openProject(type) {
+
+            let html = '';
+
+            if(type === 'superstore') {
+
+                html = `
+
+                    <h2 class="text-2xl font-bold text-white mb-3">Global Superstore Executive Dashboard</h2>
+
+                    <p class="text-slate-300 text-xs md:text-sm mb-4">End-to-end executive dashboard tracking over $2.26M in cumulative revenue with +12.4% YoY growth using Power BI and Microsoft Excel.</p>
+
+                    <div class="mb-4 rounded-xl overflow-hidden border border-slate-800 bg-slate-950">
+
+                        <img src="dashboard.png" alt="Dashboard" class="w-full h-auto object-contain">
+
+                    </div>
+
+                    <a href="https://github.com/arhnvadivirat-stack" target="_blank" class="inline-block bg-primary text-slate-950 font-semibold px-5 py-2.5 rounded-xl text-xs">View on GitHub <i class="fa-solid fa-arrow-right ml-1"></i></a>
+
+                `;
+
+            }
+
+            modalContent.innerHTML = html;
+
+            projectModal.classList.add('active-modal');
+
+        }
+
+
+
+        function closeProjectModal() {
+
+            projectModal.classList.remove('active-modal');
+
+        }
+
+
+
+        projectModal.addEventListener('click', (e) => {
+
+            if(e.target === projectModal) closeProjectModal();
+
+        });
+
+
+
+        const canvas = document.getElementById('constellationCanvas');
+
+        const ctx = canvas.getContext('2d');
+
+
+
+        function resizeCanvas() {
+
+            canvas.width = window.innerWidth;
+
+            canvas.height = window.innerHeight;
+
+        }
+
+        resizeCanvas();
+
+        window.addEventListener('resize', resizeCanvas);
+
+
+
+        class Particle {
+
+            constructor() {
+
+                this.x = Math.random() * canvas.width;
+
+                this.y = Math.random() * canvas.height;
+
+                this.vx = (Math.random() - 0.5) * 0.8;
+
+                this.vy = (Math.random() - 0.5) * 0.8;
+
+                this.radius = Math.random() * 2 + 1;
+
+            }
+
+            update() {
+
+                this.x += this.vx;
+
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+
+                if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+
+            }
+
+            draw() {
+
+                ctx.beginPath();
+
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+
+                ctx.fillStyle = 'rgba(56, 189, 248, 0.5)';
+
+                ctx.fill();
+
+            }
+
+        }
+
+
+
+        const particleCount = Math.min(window.innerWidth / 12, 80);
+
+        const particlesArray = [];
+
+        for (let i = 0; i < particleCount; i++) {
+
+            particlesArray.push(new Particle());
+
+        }
+
+
+
+        function animateConstellation() {
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+           
+
+            for (let i = 0; i < particlesArray.length; i++) {
+
+                particlesArray[i].update();
+
+                particlesArray[i].draw();
+
+
+
+                for (let j = i + 1; j < particlesArray.length; j++) {
+
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+
+
+                    if (dist < 110) {
+
+                        ctx.beginPath();
+
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+
+                        ctx.strokeStyle = `rgba(56, 189, 248, ${0.2 - dist / 550})`;
+
+                        ctx.lineWidth = 0.6;
+
+                        ctx.stroke();
+
+                    }
+
+                }
+
+
+
+                const mdx = particlesArray[i].x - mouseX;
+
+                const mdy = particlesArray[i].y - mouseY;
+
+                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+
+
+
+                if (mdist < 150) {
+
+                    ctx.beginPath();
+
+                    ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+
+                    ctx.lineTo(mouseX, mouseY);
+
+                    ctx.strokeStyle = `rgba(129, 140, 248, ${0.4 - mdist / 375})`;
+
+                    ctx.lineWidth = 0.8;
+
+                    ctx.stroke();
+
+                }
+
+            }
+
+            requestAnimationFrame(animateConstellation);
+
+        }
+
+        animateConstellation();
+
+
+
+        const trailCanvas = document.getElementById('cursorTrailCanvas');
+
+        const trailCtx = trailCanvas.getContext('2d');
+
+
+
+        function resizeTrailCanvas() {
+
+            trailCanvas.width = window.innerWidth;
+
+            trailCanvas.height = window.innerHeight;
+
+        }
+
+        resizeTrailCanvas();
+
+        window.addEventListener('resize', resizeTrailCanvas);
+
+
+
+        const history = [];
+
+        window.addEventListener('mousemove', (e) => {
+
+            history.push({ x: e.clientX, y: e.clientY });
+
+            if (history.length > 15) {
+
+                history.shift();
+
+            }
+
+        });
+
+
+
+        function animateTrail() {
+
+            trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+
+            if (history.length > 1) {
+
+                trailCtx.beginPath();
+
+                trailCtx.moveTo(history[0].x, history[0].y);
+
+                for (let i = 1; i < history.length; i++) {
+
+                    trailCtx.lineTo(history[i].x, history[i].y);
+
+                }
+
+                trailCtx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+
+                trailCtx.lineWidth = 4;
+
+                trailCtx.lineCap = 'round';
+
+                trailCtx.lineJoin = 'round';
+
+                trailCtx.shadowBlur = 15;
+
+                trailCtx.shadowColor = '#38bdf8';
+
+                trailCtx.stroke();
+
+            }
+
+            requestAnimationFrame(animateTrail);
+
+        }
+
+        animateTrail();
+
+
+
+        let isDragging = false;
+
+        let startY = 0;
+
+        let lightsOn = false;
+
+
+
+        const lampWrapper = document.getElementById('lampWrapper');
+
+        const pullWire = document.getElementById('pullWire');
+
+        const lampBulb = document.getElementById('lampBulb');
+
+
+
+        lampWrapper.addEventListener('mousedown', (e) => {
+
+            isDragging = true;
+
+            startY = e.clientY;
+
+        });
+
+
+
+        window.addEventListener('mousemove', (e) => {
+
+            if (!isDragging) return;
+
+            let diff = e.clientY - startY;
+
+            if (diff > 0 && diff < 35) {
+
+                pullWire.style.height = (40 + diff) + 'px';
+
+            }
+
+        });
+
+
+
+        window.addEventListener('mouseup', (e) => {
+
+            if (!isDragging) return;
+
+            isDragging = false;
+
+            let diff = e.clientY - startY;
+
+            pullWire.style.height = '40px';
+
+
+
+            if (diff > 12 || Math.abs(diff) <= 3) {
+
+                togglePortfolioState();
+
+            }
+
+        });
+
+
+
+        lampWrapper.addEventListener('touchstart', (e) => {
+
+            isDragging = true;
+
+            startY = e.touches[0].clientY;
+
+        });
+
+
+
+        window.addEventListener('touchmove', (e) => {
+
+            if (!isDragging) return;
+
+            let diff = e.touches[0].clientY - startY;
+
+            if (diff > 0 && diff < 35) {
+
+                pullWire.style.height = (40 + diff) + 'px';
+
+            }
+
+        });
+
+
+
+        window.addEventListener('touchend', (e) => {
+
+            if (!isDragging) return;
+
+            isDragging = false;
+
+            pullWire.style.height = '40px';
+
+            togglePortfolioState();
+
+        });
+
+
+
+        function togglePortfolioState() {
+
+            lightsOn = !lightsOn;
+
+
+
+            const revealItems = document.querySelectorAll('.hero-reveal-item');
+
+
+
+            if (lightsOn) {
+
+                lampBulb.style.background = '#38bdf8';
+
+                lampBulb.style.boxShadow = '0 0 20px #38bdf8, 0 0 40px rgba(56, 189, 248, 0.8)';
+
+                document.body.classList.add('lights-on');
+
+                document.getElementById('lampWrapper').style.opacity = '0.3';
+
+               
+
+                const welcome = document.getElementById('welcomeOverlay');
+
+                welcome.classList.remove('hidden-box');
+
+                welcome.classList.add('active-terminal');
+
+
+
+                document.getElementById('line1').classList.remove('active');
+
+                document.getElementById('line2').classList.remove('active');
+
+                document.getElementById('line3').classList.remove('active');
+
+                document.getElementById('line4').classList.remove('active');
+
+
+
+                setTimeout(() => { document.getElementById('line1').classList.add('active'); }, 100);
+
+                setTimeout(() => { document.getElementById('line2').classList.add('active'); }, 600);
+
+                setTimeout(() => { document.getElementById('line3').classList.add('active'); }, 1100);
+
+                setTimeout(() => { document.getElementById('line4').classList.add('active'); }, 1600);
+
+
+
+                setTimeout(() => {
+
+                    welcome.classList.remove('active-terminal');
+
+                    welcome.classList.add('hidden-box');
+
+                    const splash = document.getElementById('introSplash');
+
+                    splash.classList.add('active-intro');
+
+
+
+                    document.getElementById('cs1').classList.remove('reveal');
+
+                    document.getElementById('cs2').classList.remove('reveal');
+
+
+
+                    setTimeout(() => { document.getElementById('cs1').classList.add('reveal'); }, 300);
+
+                    setTimeout(() => { document.getElementById('cs2').classList.add('reveal'); }, 700);
+
+
+
+                    setTimeout(() => {
+
+                        splash.classList.add('fade-out');
+
+                        document.getElementById('portfolioContainer').classList.add('show-portfolio');
+
+                       
+
+                        revealItems.forEach(item => item.classList.add('reveal-now'));
+
+                    }, 2800);
+
+
+
+                }, 2200);
+
+
+
+            } else {
+
+                lampBulb.style.background = '#64748b';
+
+                lampBulb.style.boxShadow = 'none';
+
+                document.body.classList.remove('lights-on');
+
+                document.getElementById('lampWrapper').style.opacity = '1';
+
+
+
+                document.getElementById('portfolioContainer').classList.remove('show-portfolio');
+
+                document.getElementById('introSplash').classList.remove('active-intro', 'fade-out');
+
+                document.getElementById('welcomeOverlay').classList.remove('active-terminal');
+
+                document.getElementById('welcomeOverlay').classList.add('hidden-box');
+
+
+
+                revealItems.forEach(item => item.classList.remove('reveal-now'));
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
+
